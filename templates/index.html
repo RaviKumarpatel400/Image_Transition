@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PixelMagic Pro | AI-Powered Image Transformation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #d946ef 100%);
+            --secondary-gradient: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
+            --accent-gradient: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);
+            --text-primary: #1e293b;
+            --text-secondary: #475569;
+            --background: #f8fafc;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(-100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--background);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .header {
+            background: var(--primary-gradient);
+            background-size: 200% 200%;
+            animation: gradientBG 15s ease infinite;
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo i {
+            margin-right: 0.5rem;
+            font-size: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .hero {
+            background: var(--primary-gradient);
+            background-size: 200% 200%;
+            animation: gradientBG 15s ease infinite;
+            color: white;
+            padding: 6rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("/api/placeholder/1200/400");
+            opacity: 0.1;
+            animation: pulse 10s ease-in-out infinite;
+        }
+
+        .floating-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .floating-element {
+            position: absolute;
+            font-size: 2rem;
+            color: rgba(255, 255, 255, 0.3);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+            animation: slideIn 1s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .features {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: -4rem auto 4rem;
+            max-width: 1200px;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            flex: 1;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature-card i {
+            font-size: 2.5rem;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        .editor-card {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+
+        .editor-card:hover {
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .editor-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .editor-title i {
+            margin-right: 1rem;
+            font-size: 2.2rem;
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        input[type="file"],
+        select,
+        input[type="range"],
+        input[type="color"] {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 0.75rem;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        select:focus,
+        input:focus {
+            outline: none;
+            border-color: #8b5cf6;
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+        }
+
+        button {
+            background: var(--secondary-gradient);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 0.75rem;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            100% { left: 100%; }
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4);
+        }
+
+        .result-card {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            margin-top: 2rem;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .image-preview {
+            max-width: 100%;
+            border-radius: 1rem;
+            margin-top: 1rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .image-preview:hover {
+            transform: scale(1.02);
+        }
+
+        .btn-download {
+            display: inline-block;
+            background: var(--accent-gradient);
+            color: white;
+            text-decoration: none;
+            padding: 1rem 2rem;
+            border-radius: 0.75rem;
+            margin-top: 1.5rem;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-download:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(249, 115, 22, 0.4);
+        }
+
+        footer {
+            background: var(--text-primary);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+                padding: 1rem;
+            }
+
+            .nav-links {
+                margin-top: 1rem;
+                gap: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .features {
+                flex-direction: column;
+                margin-top: 2rem;
+            }
+
+            .feature-card {
+                margin-bottom: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <i class="fas fa-wand-magic-sparkles"></i>
+            PixelMagic Pro
+        </div>
+        <nav class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#editor">Editor</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="floating-elements">
+            <i class="fas fa-camera floating-element" style="top: 20%; left: 10%;"></i>
+            <i class="fas fa-images floating-element" style="top: 60%; left: 80%;"></i>
+            <i class="fas fa-palette floating-element" style="top: 30%; left: 90%;"></i>
+            <i class="fas fa-magic floating-element" style="top: 70%; left: 20%;"></i>
+        </div>
+        <div class="hero-content">
+            <h1>Transform Your Images with AI Magic</h1>
+            <p>Experience the future of image editing with our cutting-edge AI technology. Create stunning visuals in seconds.</p>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="feature-card">
+            <i class="fas fa-wand-magic-sparkles"></i>
+            <h3>AI Background Removal</h3>
+            <p>Remove backgrounds instantly with precision using advanced AI technology.</p>
+        </div>
+        <div class="feature-card">
+            <i class="fas fa-palette"></i>
+            <h3>Pro Filters & Effects</h3>
+            <p>Apply stunning filters and effects crafted by professional designers.</p>
+        </div>
+        <div class="feature-card">
+            <i class="fas fa-sliders-h"></i>
+            <h3>Smart Enhancement</h3>
+            <p>Automatically enhance your images with AI-powered optimization.</p>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="editor-card">
+            <h2 class="editor-title"><i class="fas fa-camera-retro"></i>Pro Image Editor</h2>
+            <form action="/" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="image"><i class="fas fa-cloud-upload-alt"></i> Upload Your Masterpiece</label>
+                    <input type="file" id="image" name="image" required>
+                </div>
+                <div class="form-group">
+                    <label for="operation"><i class="fas fa-magic"></i> Choose Your Magic</label>
+                    <select id="operation" name="operation" onchange="toggleFilterOptions()" required>
+                        <option value="remove_bg">Remove Background</option>
+                        <option value="filter">Apply Pro Filters</option>
+                        <option value="enhance">Smart Enhance</option>
+                    </select>
+                </div>         
+                <div id="filter-options" style="display:none;">
+                    <div class="form-group">
+                        <label for="filter_type"><i class="fas fa-film"></i> Filter Style</label>
+                        <select id="filter_type" name="filter_type">
+                            <option value="VIBRANT">Vibrant</option>
+                            <option value="SEPIA">Sepia</option>
+                            <option value="SHARPEN">Sharpen</option>
+                            <option value="BLUR">Soft Blur</option>
+                            <option value="CONTOUR">Contour</option>
+                            <option value="EDGE_ENHANCE">Edge Enhance</option>
+                            <option value="EMBOSS">Emboss</option>
+                            <option value="GRAYSCALE">Grayscale</option>
+                            <option value="INVERT">Invert</option>
+                            <option value="BRIGHTEN">Brighten</option>
+                        </select>
+                        
+                    </div>
+                </div>
+                
+                <div id="enhancement-options" style="display:none;">
+                    <div class="form-group">
+                        <label for="enhance_type"><i class="fas fa-sliders-h"></i> Enhancement Type</label>
+                        <select id="enhance_type" name="enhance_type">
+                            <option value="BRIGHTNESS">Brightness</option>
+                            <option value="CONTRAST">Contrast</option>
+                            <option value="SATURATION">Saturation</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="enhance_value">Adjustment Level</label>
+                        <input type="range" id="enhance_value" name="enhance_value" min="0" max="100" value="50">
+                    </div>
+                </div>
+
+                <div class="form-group" id="background-color-options">
+                    <label for="bg_color"><i class="fas fa-fill-drip"></i> New Background Color</label>
+                    <!-- <input type="color" id="bg_color" name="bg_color" value="#fffff"> -->
+                </div>
+
+                <div class="form-group">
+                    <button type="submit"><i class="fas fa-magic"></i> Process Image</button>
+                </div>
+            </form>
+        </div>
+
+        {% if image_url %}
+        <div class="result-card">
+            <h2><i class="fas fa-check-circle"></i> Your Enhanced Image</h2>
+            <img src="{{ image_url }}" alt="Processed Image" class="image-preview">
+            <br>
+            <a href="{{ url_for('download_file', filename=filename) }}" class="btn-download">
+                <i class="fas fa-download"></i> Download Image
+            </a>
+        </div>
+        {% endif %}
+    </div>
+
+    <footer>
+        <p>&copy; 2024 ImagePro AI. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function toggleFilterOptions() {
+            const operation = document.getElementById('operation').value;
+            const filterOptions = document.getElementById('filter-options');
+            const enhancementOptions = document.getElementById('enhancement-options');
+            const bgColorOptions = document.getElementById('background-color-options');
+
+            filterOptions.style.display = operation === 'filter' ? 'block' : 'none';
+            enhancementOptions.style.display = operation === 'enhance' ? 'block' : 'none';
+            bgColorOptions.style.display = operation === 'remove_bg' ? 'block' : 'none';
+        }
+
+        window.onload = function() {
+            toggleFilterOptions();
+        };
+    </script>
+</body>
+</html>
